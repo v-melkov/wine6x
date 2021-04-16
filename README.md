@@ -15,15 +15,17 @@
 `wget https://dl.winehq.org/wine/source/6.0/wine-6.0.tar.xz`
 
 Распаковываем:  
-`tar -xvf wine-6.0.tar.xz -c wine-source`
+`tar -xvf wine-6.0.tar.xz -C wine-source`
 
 Создаём пару директорий для работы:  
-`mkdir wine32-build && mkdir wine64-build`  
+`mkdir wine{32,64}-build`  
 
 переходим в 64-битную версию:  
 `cd wine64-build`  
-`./configure --enable-win64`  
+`../wine-source/configure --enable-win64`  
 `make -j17`
 
 32 бита:  
-`cd ../wine32-build`  
+`cd ../wine32-build`
+`PKG_CONFIG_PATH=/usr/lib ../wine-source/configure --with-wine64=../wine64-build`  
+`make`   
